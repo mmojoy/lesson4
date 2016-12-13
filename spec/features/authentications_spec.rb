@@ -26,12 +26,26 @@ RSpec.feature 'Authentication', type: :feature do
   end
 
   feature 'Sign Up' do
-    scenario 'fails with invalid credentials' do
-      # TODO
+    background do
+      visit root_path
     end
 
-    scenario 'success with valid credentials' do
-      # TODO
+    scenario 'fails with invalid credentials', js: true do
+     click_link 'Signup'
+     click_button 'Create user'
+     expect(page).to have_text('blank')
+   end
+
+   scenario 'success with valid credentials', js: true do
+    click_link 'Signup'
+    within 'form' do
+      fill_in :name, with: 'test'
+      fill_in 'Email', with: 'test2@mail.com'
+      fill_in 'Password', with: 'qwerty22'
+      fill_in 'Password confirmation', with: 'qwerty22'
     end
+    click_button 'Create user'
+    expect(page).to have_text('successfully')
   end
+end
 end
