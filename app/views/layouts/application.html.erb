@@ -1,28 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Todo</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>Todo</title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body data-user="<%= current_user&.id %>">
-    <header>
-      <% if current_user %>
-        Signed in as <%= current_user.email %> | <%= link_to "Logout", '/logout', method: :delete %>
-      <% else %>
-        <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
-      <% end %>
-    </header>
+<body data-user="<%= current_user&.id %>">
+  <header>
+    <% if current_user %>
+    <% provide(:title, current_user.email) %>
+    <h1>
+      <%= gravatar_for current_user %>
+      <br>
+      <%= current_user.email %>
+    </h1>
 
-    <div class='errors'>
-      <% flash.each do |key, value| %>
-        <%= content_tag :div, value, class: "flash #{key}" %>
-      <% end %>
-    </div>
+    <br>
+    | <%= link_to "Logout", '/logout', method: :delete %>
+    <% else %>
+    <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
+    <% end %>
+  </header>
 
-    <%= yield %>
-  </body>
+  <div class='errors'>
+    <% flash.each do |key, value| %>
+    <%= content_tag :div, value, class: "flash #{key}" %>
+    <% end %>
+  </div>
+
+  <%= yield %>
+</body>
 </html>
