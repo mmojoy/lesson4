@@ -2,19 +2,22 @@
 class ListsChannel < ApplicationCable::Channel
   def subscribed
     stream_from "lists_channel_#{params[:list]}"
+    redis.sadd "list_#{params[:list]}_online", current_user.id
+    broadcast_status(redis.smembers("list_#{params[:list]}_online"))
   end
 
   def unsubscribed
-    broadcast_status('offline')
+    redis.srem "list_#{params[:list]}_online", current_user.id
+    broadcast_status(redis.smembers("list_#{params[:list]}_online"))
   end
 
-  def appear
-    broadcast_status('online')
+  def broadcast_status(users)
+    ActionCable.server.broadcast("lists_channel_#{params[:list]}", online_users: users)
   end
 
-  def broadcast_status(status)
-    ActionCable.server.broadcast("lists_channel_#{params[:list]}",
-                                 user: current_user.id,
-                                 status: status)
+  private
+
+  def redis
+    Redis.current
   end
 end

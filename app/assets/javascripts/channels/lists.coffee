@@ -1,21 +1,20 @@
 $(document).on 'turbolinks:load', ->
-  return unless list = $('[data-list]')[0]
-  id = list.getAttribute('data-list')
-  App.lists = App.cable.subscriptions.create { channel: "ListsChannel", list: id },
-
-    connected: ->
-      @appear()
+  if list = $('[data-list]')[0]
+    id = list.getAttribute('data-list')
+    App.lists = App.cable.subscriptions.create { channel: "ListsChannel", list: id },
 
     received: (data) ->
-      if (data.status)
-        @addStatusClass(data.user, data.status)
+      if (data.online_users)
+        @markOnline(data.online_users)
       else
         return if $("[data-user=#{ data.user }]")[0]
         eval(data.action)
 
-    appear: ->
-      @perform('appear')
+    markOnline: (users) ->
+      $("[data-person]").removeClass()
+      users.forEach (user) ->
+        $("[data-person=#{user}]").addClass('online')
 
-    addStatusClass: (user, status) ->
-      $("[data-person=#{user}]").removeClass()
-      $("[data-person=#{user}]").addClass(status)
+  else
+    if App.cable.subscriptions.subscriptions.length > 0
+      App.cable.subscriptions.remove(App.cable.subscriptions.subscriptions[0])
