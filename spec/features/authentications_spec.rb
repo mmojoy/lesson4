@@ -19,7 +19,7 @@ RSpec.feature 'Authentication', type: :feature do
         fill_in 'Password', with: user.password
       end
       click_button 'Sign in'
-      expect(page).to have_text('Signed in as')
+      expect(page).to have_text('mail@mail.com')
       click_link 'Logout'
       expect(page).to have_text('Login')
     end
@@ -39,7 +39,7 @@ RSpec.feature 'Authentication', type: :feature do
    scenario 'success with valid credentials', js: true do
     click_link 'Signup'
     within 'form' do
-      fill_in :name, with: 'test'
+      fill_in 'Name', with: 'test'
       fill_in 'Email', with: 'test2@mail.com'
       fill_in 'Password', with: 'qwerty22'
       fill_in 'Password confirmation', with: 'qwerty22'

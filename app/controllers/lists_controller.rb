@@ -13,7 +13,11 @@ class ListsController < ApplicationController
 
   def create
     @list = current_user.lists.create(list_params)
-    redirect_to list_tasks_path(@list.id) if @list.save
+    if @list.save
+      redirect_to list_tasks_path(@list.id)
+    else
+      redirect_to lists_path, notice: 'Invalid list name'
+    end
   end
 
   def share
@@ -29,6 +33,7 @@ class ListsController < ApplicationController
 
   def destroy
     @list.destroy
+    redirect_to lists_path, notice: 'list was destroyed'
   end
 
   private
