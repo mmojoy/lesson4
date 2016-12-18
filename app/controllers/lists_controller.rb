@@ -7,10 +7,6 @@ class ListsController < ApplicationController
     @list = List.new
   end
 
-  def show
-    redirect_to list_tasks_path(@list.id)
-  end
-
   def create
     @list = current_user.lists.create(list_params)
     redirect_to list_tasks_path(@list.id) if @list.save
