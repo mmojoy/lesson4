@@ -24,7 +24,6 @@ class TasksController < ApplicationController
 
   def update_all
     current_list.tasks.update_all(done: params[:done].present?)
-    head :ok, content_type: 'text/html'
   end
 
   def destroy
@@ -34,10 +33,6 @@ class TasksController < ApplicationController
 
   def remove_completed
     current_list.tasks.where(done: true).delete_all
-  end
-
-  def share
-    @user = User.find(params[:email])
   end
 
   private

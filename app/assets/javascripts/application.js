@@ -15,11 +15,6 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).on('change', 'input#boss', function(){
-  $('input:checkbox').prop('checked', this.checked);
-  $("#tasks:not([data-type=''])").slideUp()
-})
-
 $(document).on('change', '.single input[type=checkbox]', function(){
   var url = window.location.href;
   var lastPart = url.substr(url.lastIndexOf('/') + 1);
