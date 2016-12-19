@@ -12,24 +12,27 @@
 
 ActiveRecord::Schema.define(version: 20161204195622) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "lists", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_lists_on_user_id"
+    t.index ["user_id"], name: "index_lists_on_user_id", using: :btree
   end
 
   create_table "lists_users", primary_key: "false", force: :cascade do |t|
     t.integer "list_id"
     t.integer "user_id"
-    t.index ["list_id", "user_id"], name: "index_lists_users_on_list_id_and_user_id"
+    t.index ["list_id", "user_id"], name: "index_lists_users_on_list_id_and_user_id", unique: true, using: :btree
   end
 
   create_table "pending_emails", force: :cascade do |t|
     t.integer "list_id"
     t.string  "email"
-    t.index ["list_id"], name: "index_pending_emails_on_list_id"
+    t.index ["list_id"], name: "index_pending_emails_on_list_id", using: :btree
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -40,7 +43,7 @@ ActiveRecord::Schema.define(version: 20161204195622) do
     t.datetime "updated_at",                 null: false
     t.boolean  "done",       default: false
     t.integer  "list_id"
-    t.index ["list_id"], name: "index_tasks_on_list_id"
+    t.index ["list_id"], name: "index_tasks_on_list_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -51,4 +54,6 @@ ActiveRecord::Schema.define(version: 20161204195622) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "lists", "users"
+  add_foreign_key "pending_emails", "lists"
 end

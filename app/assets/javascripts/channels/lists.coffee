@@ -16,5 +16,4 @@ $(document).on 'turbolinks:load', ->
         $("[data-person=#{user}]").addClass('online')
 
   else
-    if App.cable.subscriptions.subscriptions.length > 0
-      App.cable.subscriptions.remove(App.cable.subscriptions.subscriptions[0])
+    App.lists.unsubscribe() if App.lists

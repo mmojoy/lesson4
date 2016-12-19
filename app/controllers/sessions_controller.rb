@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
     if user&.authenticate(params[:password])
       sign_in(user)
-      redirect_to list_tasks_path(user.lists.first)
+      redirect_to lists_path
     else
       redirect_to '/login', alert: 'Email or password is incorrect!'
     end
