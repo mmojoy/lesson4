@@ -11,8 +11,7 @@
   <body data-user="<%= current_user&.id %>">
     <header>
       <% if current_user %>
-        <%= image_tag avatar_url(current_user) %>
-        Signed in as <%= current_user.email %> | <%= link_to "Logout", '/logout', method: :delete %>
+        Signed in as <%= current_user.email %>  <%= gravatar_for current_user %>| <%= link_to "Logout", '/logout', method: :delete %>
       <% else %>
         <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
       <% end %>
