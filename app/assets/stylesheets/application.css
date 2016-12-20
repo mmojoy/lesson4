@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
-
+*, *:before, *:after {box-sizing:  border-box;}
 
 .single input:checked + a {
   text-decoration: line-through;
@@ -21,7 +21,7 @@
 
 li a {
   display: inline-block;
-  min-width: 200px;
+  min-width: 120px;
 }
 
 .delete {
@@ -84,4 +84,19 @@ ul {
   content: '⚫';
   color: green;
   margin-right: 5px;
+}
+
+.lists {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.single-list {
+  width: 22%;
+  margin: 4% 4% 4% 0;
+  border:1px solid black;
+}
+
+.single-list:nth-child(4n) {
+  margin-right: 0;
 }

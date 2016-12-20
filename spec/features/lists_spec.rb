@@ -55,8 +55,7 @@ RSpec.feature 'Lists', type: :feature, js: true do
 
   feature 'Destroy list' do
     scenario 'remove list' do
-      find("#list_#{list.id}").hover
-      find("#list_#{list.id} .delete", visible: false).click
+      find("#list_#{list.id} a", text: '×').click
       expect(page).to_not have_text(list.title)
     end
   end
