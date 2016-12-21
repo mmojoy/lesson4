@@ -3,16 +3,19 @@ source 'https://rubygems.org'
 ruby '2.3.3'
 gem 'bcrypt', '~> 3.1.7'
 gem 'coffee-rails', '~> 4.2'
+gem 'gravatar_image_tag'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'pg'
 gem 'puma', '~> 3.0'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails-controller-testing'
 gem 'redis', '~> 3.0'
 gem 'rubocop'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
