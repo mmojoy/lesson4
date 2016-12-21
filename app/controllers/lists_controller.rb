@@ -9,24 +9,7 @@ class ListsController < ApplicationController
 
   def create
     @list = current_user.lists.create(list_params)
-    if @list.save
-      redirect_to list_tasks_path(@list.id)
-    else
-      render(:new)
-    end
-  end
-
-  def update
-    #  @list = current_user.lists.find(params[:id])
-    if @list.update_attributes(list_params)
-      redirect_to root_url, notice: 'Successful update'
-    else
-      render 'edit'
-    end
-  end
-
-  def edit
-    @list = current_user.lists.find(params[:id])
+    redirect_to list_tasks_path(@list.id) if @list.save
   end
 
   def share
@@ -47,7 +30,7 @@ class ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:title, :background_lists_color)
+    params.require(:list).permit(:title)
   end
 
   def find_list
