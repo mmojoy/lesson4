@@ -30,7 +30,7 @@ class ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:title)
+    params.require(:list).permit(:title, :background_color)
   end
 
   def find_list
