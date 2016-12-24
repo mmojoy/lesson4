@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :email, :email => {:mx => true, :message => I18n.t('not valid mx')}
 
-  validates :password, length: { minimum: 2 }, on: :create
+  validates :password, length: { minimum: 8 }, on: :create
 
   after_create :create_default_list, :check_pending_lists
 
