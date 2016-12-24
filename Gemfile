@@ -13,6 +13,7 @@ gem 'rubocop'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem 'valid_email'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do

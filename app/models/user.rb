@@ -1,3 +1,4 @@
+require 'valid_email'
 class User < ApplicationRecord
   EMAIL_REGEX = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
@@ -8,8 +9,10 @@ class User < ApplicationRecord
   has_many :tasks, through: :lists, dependent: :destroy
 
   validates :name, presence: true, length: { minimum: 3 }
-  validates :email, presence: true, format: EMAIL_REGEX, uniqueness: true
-  validates :password, length: { minimum: 8 }, on: :create
+  validates :email, presence: true, uniqueness: true
+  validates :email, :email => {:mx => true, :message => I18n.t('not valid mx')}
+
+  validates :password, length: { minimum: 2 }, on: :create
 
   after_create :create_default_list, :check_pending_lists
 

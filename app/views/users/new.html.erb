@@ -17,5 +17,6 @@
     <%= f.label :password_confirmation %><br/>
     <%= f.password_field :password_confirmation %>
   </p>
+    <%= f.hidden_field :list_id, :value => params[:list_id] %>
   <%= f.submit 'Create user'%>
 <% end %>
