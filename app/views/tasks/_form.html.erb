@@ -1,5 +1,8 @@
-<%= form_for [current_list, @task], remote: true do |f| %>
+<h2 class="list-title blue-text">Add new list Item (press enter)</h2>
+<%= form_for [current_list, @task], html: {:class => 'form small-form'}, remote: true do |f| %>
+<div class="input-holder">
   <%= f.text_field :title, autofocus: true, autocomplete: false %>
-  <br>
+  <%= label_tag :title %>
+  </div>
   <%= @task.errors[:title].first %>
 <% end %>

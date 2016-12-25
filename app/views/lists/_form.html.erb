@@ -1,4 +1,14 @@
-<%= form_for [@list], remote: true do |f| %>
-  <%= f.text_field :title, autocomplete: false %>
-  <%= f.submit %>
+<div class="form-title lined">Create Your <span class="blue-text">List</span></div>
+
+<%= form_for [@list], html: {:class => 'form inline-form'}, remote: true do |f| %>
+
+<div class="input-holder">
+	<%= f.text_field :title, autocomplete: false %>
+	<%= label_tag :title %>
+</div>
+
+<!--  <%= f.submit %> -->
+
+<%= button_tag(type: 'submit', class: "submit-btn") do %>Create List<% end %>
+
 <% end %>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Todo</title>
+  <title>My ToDo List</title>
+
   <%= csrf_meta_tags %>
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,28 +10,63 @@
 </head>
 
 <body data-user="<%= current_user&.id %>">
-  <header>
-    <% if current_user %>
-    <% provide(:title, current_user.email) %>
-    <h1>
-      <%= gravatar_for current_user %>
-      <br>
-      <%= current_user.email %>
-    </h1>
-
-    <br>
-    | <%= link_to "Logout", '/logout', method: :delete %>
-    <% else %>
-    <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
-    <% end %>
+  <header class="main-header">
+    <div class="container">
+      <div class="outer">
+        <% if current_user %>
+        <% provide(:title, current_user.email) %>
+        <div class="user-panel">
+          <figure class="user-img">
+            <%= gravatar_for current_user %>
+          </figure>
+          <ul class="links-list">
+            <li>
+              <span class="blue-text"><%= current_user.email %></span>
+            </li>
+            <li>
+              <%= link_to "Logout", logout_path, method: :delete %>
+            </li>
+          </ul>
+        </div>
+        <% else %>
+        <div class="icon-holder">
+          <i class="material-icons user-icon">account_circle</i>
+        </div>
+        <ul class="links-list">
+          <li>
+            <%= link_to login_path do %>
+            <span class="link-text" data-text="LogIn">LogIn</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to signup_path do %>
+            <span class="link-text" data-text="SignUp">SignUp</span>
+            <% end %>
+          </li>
+        </ul>
+        <% end %>
+        
+      </div>
+    </div>
   </header>
-
-  <div class='errors'>
-    <% flash.each do |key, value| %>
-    <%= content_tag :div, value, class: "flash #{key}" %>
-    <% end %>
-  </div>
-
-  <%= yield %>
+  <main class="page-main">
+    <div class="container">
+      <div class="outer">
+        <%= yield %>
+        <div class="errors">
+          <% flash.each do |key, value| %>
+          <%= content_tag :div, value, class: "flash #{key}" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="main-footer">
+    <div class="container">
+      <div class="outer">
+        &copy; Copyright
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

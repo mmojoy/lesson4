@@ -24,20 +24,56 @@ $(document).on('change', '.single input[type=checkbox]', function(){
   var url = window.location.href;
   var lastPart = url.substr(url.lastIndexOf('/') + 1);
   if (lastPart == "tasks") {
-     BossState()
-  }
+   BossState()
+ }
 })
 
 function BossState() {
   var checkedCount = document.querySelectorAll('.single input:checked').length;
-    checkboxes = document.querySelectorAll('.single input[type=checkbox]'),
-    checkall = document.getElementById('boss');
-    checkall.checked = checkedCount == checkboxes.length && checkedCount != 0;
-    checkall.indeterminate = checkedCount > 0 && checkedCount < checkboxes.length;
+  checkboxes = document.querySelectorAll('.single input[type=checkbox]'),
+  checkall = document.getElementById('boss');
+  checkall.checked = checkedCount == checkboxes.length && checkedCount != 0;
+  checkall.indeterminate = checkedCount > 0 && checkedCount < checkboxes.length;
 }
 
 $(document).on('turbolinks:load', function() {
   if (document.getElementById('boss')) {
     BossState();
   }
+});
+$(document).ready(function(){
+
+  var input = $(".form input:text");
+
+  input.keyup(function(){
+
+    if (input.val().length > 0) {
+      $(this).siblings("label").addClass("focus");
+    } else {
+      $(this).siblings("label").removeClass("focus");
+
+    }
+  });
+
+  var pass = $(".form input:password");
+
+  pass.keyup(function(){
+
+    if (pass.val().length > 0) {
+      $(this).siblings("label").addClass("focus");
+    } else {
+      $(this).siblings("label").removeClass("focus");
+
+    }
+  });
+
+  $(document).mouseup(function (e) {
+
+    var container = $(".errors div");
+
+    if (container.has(e.target).length === 0){
+      container.hide();
+    }
+  });
+
 });

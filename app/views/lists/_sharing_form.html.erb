@@ -1,5 +1,16 @@
-<%= form_tag share_list_path(current_list), method: :patch, remote: true do |f| %>
-  <%= label_tag :email, 'Enter user email' %>
-  <%= text_field_tag :email %>
-  <%= submit_tag 'Send'%>
+<div class="form-heading">Share It</div>
+<%= form_tag share_list_path(current_list), method: :patch, :class => 'form inline-form', remote: true do |f| %>
+<div class="input-holder">
+	<%= text_field_tag :email %>
+	<%= label_tag :email, 'Enter user email' %>
+</div>
+<!-- <%= submit_tag 'Send'%> -->
+
+<%= button_tag(type: 'submit', class: "submit-btn") do %>Send<% end %>
+
 <% end %>
+
+
+
+
+

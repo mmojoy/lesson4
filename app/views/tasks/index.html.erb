@@ -1,36 +1,60 @@
-<%= link_to 'All', list_tasks_path(current_list) %>
-|
-<%= link_to 'Done', filtered_list_tasks_path(current_list, :done) %>
-|
-<%= link_to 'Open', filtered_list_tasks_path(current_list, :open) %>
-<br />
-<%= link_to 'Lists', lists_path %>
-<hr>
+<div class="back-link"><i class="material-icons">keyboard_return</i><%= link_to 'back to all list', lists_path %></div>
 
-<h1 data-list="<%= current_list.id %>"><%= current_list.title %></h1>
+<h2 data-list="<%= current_list.id %>" class="form-title lined list-heading"><%= current_list.title %></h2>
 
-<%= render 'lists/sharing_form' %>
-<hr>
 <%= render 'form' %>
 
-<input type='checkbox' name='done' id='boss' value='1' data-url="<%= list_tasks_path(current_list) %>" data-method="PATCH" data-remote>
-<div id='sort'>
-  <%= render 'sort' %>
+<div class="cover">
+	<div class="half">
+		<ul class="filters-list">
+			<li><%= link_to 'All', list_tasks_path(current_list) %></li>
+			<li><%= link_to 'Done', filtered_list_tasks_path(current_list, :done) %></li>
+			<li><%= link_to 'Open', filtered_list_tasks_path(current_list, :open) %></li>
+		</ul>
+	</div>
+	<div class="half text-right">
+		<div id="sort" class="sort-block">
+			<%= render 'sort' %>
+		</div>
+	</div>
+</div>
+<div class="cover">
+	<div class="half">
+		<div class="check-wrap">
+			<input type='checkbox' class="checkbox" name='done' id='boss' value='1' data-url="<%= list_tasks_path(current_list) %>" data-method="PATCH" data-remote>
+			<label for="boss" class="checkbox-label">Choose All</label>
+		</div>
+	</div>
+	<div class="half text-right">
+		<div class="link-wrap">
+			<%= link_to "Remove completed", remove_completed_list_tasks_path,
+			method: :get, remote: true %>
+		</div>
+	</div>
 </div>
 
-<ol id='tasks' data-type="<%= params[:type] %>">
-  <%= render tasks %>
-</ol>
-
-<%= link_to "Remove completed", remove_completed_list_tasks_path,
-                                method: :get, remote: true %><br/>
-
-<hr>
-<h2>List owner</h2>
-<p data-person='<%= current_list.user.id %>'><%= current_list.user.name %></p>
-<h2>List is shared with</h2>
-<ul>
-  <%= current_list.users.find_each do |user| %>
-    <li data-person='<%= user.id %>'><%= user.name %></li>
-  <% end %>
+<ul id='tasks' data-type="<%= params[:type] %>" class="inner-list list-main">
+	<%= render tasks %>
 </ul>
+
+
+<div class="list-caption">
+	<div class="cover">
+		<div class="half">
+
+			<div class="subheading">List owner:</div>
+			<div data-person='<%= current_list.user.id %>'><%= current_list.user.name %></div>
+		</div>
+		<div class="half">
+		<div class="subheading">List is shared with:</div>
+			<ul>
+				<%= current_list.users.find_each do |user| %>
+				<li data-person='<%= user.id %>'><%= user.name %></li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<%= render 'lists/sharing_form' %>
+
